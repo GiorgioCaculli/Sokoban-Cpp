@@ -1,6 +1,6 @@
-#include "Board.hpp"
+#include <gzc/games/sokoban/core/Board.hpp>
 
-#include <util/logger/Logger.hpp>
+#include <gzc/logger/Logger.hpp>
 
 
 #include <string>

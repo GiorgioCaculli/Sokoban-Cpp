@@ -1,4 +1,4 @@
-#include "Box.hpp"
+#include <gzc/games/sokoban/core/Box.hpp>
 
 #include <sstream>
 #include <iostream>

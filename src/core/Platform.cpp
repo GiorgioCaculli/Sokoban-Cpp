@@ -1,4 +1,4 @@
-#include "Platform.hpp"
+#include <gzc/games/sokoban/core/Platform.hpp>
 
 #include <sstream>
 #include <iostream>

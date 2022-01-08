@@ -1,4 +1,4 @@
-#include "Player.hpp"
+#include <gzc/games/sokoban/core/Player.hpp>
 
 #include <sstream>
 #include <iostream>

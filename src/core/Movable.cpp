@@ -1,4 +1,4 @@
-#include "Movable.hpp"
+#include <gzc/games/sokoban/core/Movable.hpp>
 
 #include <sstream>
 #include <utility>

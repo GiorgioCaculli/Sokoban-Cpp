@@ -1,4 +1,4 @@
-#include "Wall.hpp"
+#include <gzc/games/sokoban/core/Wall.hpp>
 
 #include <sstream>
 #include <iostream>

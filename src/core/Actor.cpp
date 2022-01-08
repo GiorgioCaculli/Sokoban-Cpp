@@ -1,4 +1,4 @@
-#include "Actor.hpp"
+#include <gzc/games/sokoban/core/Actor.hpp>
 
 #include <sstream>
 
