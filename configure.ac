@@ -1,6 +1,6 @@
 AC_PREREQ([2.69])
 
-AC_INIT([sokoban], [1.1.1], [devs@calata.be], [gzc-sokoban], [https://gitlab.com/GiorgioCaculli/Sokoban-Cpp])
+AC_INIT([sokoban], [1.1.2], [devs@calata.be], [gzc-sokoban], [https://gitlab.com/GiorgioCaculli/Sokoban-Cpp])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 

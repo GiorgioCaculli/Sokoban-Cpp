@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(sokoban VERSION 1.1.0 DESCRIPTION "GzC's Sokoban Library")
+project(sokoban VERSION 1.1.2 DESCRIPTION "GzC's Sokoban Library")
 
 include(GNUInstallDirs)
 

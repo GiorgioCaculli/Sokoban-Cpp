@@ -62,7 +62,7 @@ Board::Board( const std::string &lvl )
           , _width( 0 )
           , _height( 0 )
 {
-    _level = std::move( parse_text_file( lvl ) );
+    _level = parse_text_file( lvl );
     logger.log( Logger::Level::INFO, "Level Layout:\n" + _level );
     init_board();
 }
