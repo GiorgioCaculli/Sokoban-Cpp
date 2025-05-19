@@ -1,6 +1,6 @@
 BSD 3-Clause License
 
-Copyright (c) 2021-2022 Caculli Giorgio <la196672@student.helha.be>
+Copyright (c) 2021-2025 Caculli Giorgio <giorgio.caculli@icloud.com>
 
 All rights reserved.
 

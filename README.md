@@ -1,22 +1,14 @@
-# Sokoban Game written in C++11
+# Concept library for Sokoban game engine written in C++20
 
 ## Dependencies
-- [Boost](https://www.boost.org/)
+- [GzC's Util Library](https://www.gitlab.com/GiorgioCaculli/Util-Cpp/)
 
 ## Build Tools:
 - [CMake](https://cmake.org/)
-- [Autotools](https://www.gnu.org/software/software.html)
 
 ## Building Instructions:
-
-### Autotools
-1. mkdir build
-2. cd build
-3. autoreconf -fiv ../
-4. ../configure
-5. make
-
 ### CMake
 1. mkdir build
 2. cmake ../
 3. make
+4. sudo (or doas) make install
