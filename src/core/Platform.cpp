@@ -1,7 +1,6 @@
 #include <gzc/games/sokoban/core/Platform.hpp>
 
 #include <sstream>
-#include <iostream>
 
 using namespace sokoban::core;
 
@@ -10,7 +9,7 @@ using namespace sokoban::core;
  * @param x The X coordinates on the board
  * @param y The Y coordinates on the board
  */
-Platform::Platform( float x, float y )
+Platform::Platform( const float x, const float y )
         : Actor( x, y )
 {
 }

@@ -4,7 +4,7 @@
 
 using namespace sokoban::core;
 
-const float SPACE = 1.f; /** Dans ce cas, les images mesurent 64x64 */
+constexpr float SPACE = 1.f; /** Dans ce cas, les images mesurent 64x64 */
 
 /**
  * This constructor will initialise the different pieces of informations which characterise an actor
@@ -12,7 +12,7 @@ const float SPACE = 1.f; /** Dans ce cas, les images mesurent 64x64 */
  * @param y The Y coordinate.
  * @param asset_coords The coordinates on the sprite sheet which represent it graphically.
  */
-Actor::Actor( float x, float y )
+Actor::Actor( const float x, const float y )
         : _x( x )
           , _y( y )
 {

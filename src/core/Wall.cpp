@@ -1,7 +1,6 @@
 #include <gzc/games/sokoban/core/Wall.hpp>
 
 #include <sstream>
-#include <iostream>
 
 using namespace sokoban::core;
 
@@ -10,7 +9,7 @@ using namespace sokoban::core;
  * @param x The X coordinate on the board
  * @param y The Y coordinate on the board
  */
-Wall::Wall( float x, float y )
+Wall::Wall( const float x, const float y )
         : Actor( x, y )
 {
 }

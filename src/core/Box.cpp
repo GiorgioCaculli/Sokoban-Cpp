@@ -1,11 +1,10 @@
 #include <gzc/games/sokoban/core/Box.hpp>
 
 #include <sstream>
-#include <iostream>
 
 using namespace sokoban::core;
 
-Box::Box( float x, float y )
+Box::Box( const float x, const float y )
         : Movable( x, y )
 {
 }

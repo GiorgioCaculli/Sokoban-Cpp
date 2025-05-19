@@ -1,14 +1,13 @@
 #include <gzc/games/sokoban/core/Movable.hpp>
 
 #include <sstream>
-#include <utility>
 
 using namespace sokoban::core;
 
 /**
  * Just like the Actor class, the object 'movable' must also instance the X and Y coordinates
  */
-Movable::Movable( float x, float y )
+Movable::Movable( const float x, const float y )
         : Actor( x, y )
 {
 }

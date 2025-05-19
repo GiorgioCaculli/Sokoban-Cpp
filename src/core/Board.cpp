@@ -1,6 +1,6 @@
 #include <gzc/games/sokoban/core/Board.hpp>
 
-#include <gzc/logger/Logger.hpp>
+#include <gzc/util/logger/Logger.hpp>
 
 
 #include <string>
@@ -8,12 +8,11 @@
 #include <iostream>
 #include <fstream>
 
-using namespace util;
+using namespace gzc::util;
 using namespace sokoban::core;
 
-const int OFFSET = 1; /** Variable used for the amount of pixels an actor can move */
-const int SPACE = 1; /** Variable used for the size of each character */
-Logger logger( "board", "sokoban.log", true );
+constexpr int OFFSET = 1; /** Variable used for the amount of pixels an actor can move */
+constexpr int SPACE = 1; /** Variable used for the size of each character */
 
 /*!
  * Parse the text file storing the symbols that make out a level.
@@ -27,11 +26,10 @@ Logger logger( "board", "sokoban.log", true );
  */
 std::string parse_text_file( const std::string &lvl )
 {
-    std::string line;
     std::stringstream ss;
-    std::ifstream level_file( lvl );
-    if ( level_file.is_open() )
+    if ( std::ifstream level_file( lvl ); level_file.is_open() )
     {
+        std::string line;
         while ( std::getline( level_file, line ) )
         {
             ss << line << '\n';
@@ -63,7 +61,8 @@ Board::Board( const std::string &lvl )
           , _height( 0 )
 {
     _level = parse_text_file( lvl );
-    logger.log( Logger::Level::INFO, "Level Layout:\n" + _level );
+    logger::Logger logger( "board_constructor_lvl_string", "sokoban.log", true );
+    logger.log( logger::Logger::Level::INFO, "Level Layout:\n" + _level );
     init_board();
 }
 
@@ -108,22 +107,23 @@ Board &Board::operator=( const Board &board )
  */
 Board::~Board()
 {
-    for ( Wall *wall: _walls )
+    logger::Logger logger( "board_constructor", "sokoban.log", true );
+    for ( const Wall *wall: _walls )
     {
-        logger.log( Logger::Level::INFO, "Deletion " + wall->to_string() );
+        logger.log( logger::Logger::Level::INFO, "Deletion " + wall->to_string() );
         delete wall;
     }
-    for ( Platform *platform: _platforms )
+    for ( const Platform *platform: _platforms )
     {
-        logger.log( Logger::Level::INFO, "Deletion " + platform->to_string() );
+        logger.log( logger::Logger::Level::INFO, "Deletion " + platform->to_string() );
         delete platform;
     }
-    for ( Box *box: _boxes )
+    for ( const Box *box: _boxes )
     {
-        logger.log( Logger::Level::INFO, "Deletion " + box->to_string() );
+        logger.log( logger::Logger::Level::INFO, "Deletion " + box->to_string() );
         delete box;
     }
-    logger.log( Logger::Level::INFO, "Deletion " + _player->to_string() );
+    logger.log( logger::Logger::Level::INFO, "Deletion " + _player->to_string() );
     delete _player;
     _boxes.clear();
     _walls.clear();
@@ -136,7 +136,8 @@ Board::~Board()
  */
 void Board::init_board()
 {
-    logger.log( Logger::Level::INFO, "Initializing World..." );
+    logger::Logger logger( "init_board", "sokoban.log", true );
+    logger.log( logger::Logger::Level::INFO, "Initializing World..." );
     init_world();
 }
 
@@ -153,6 +154,7 @@ void Board::init_board()
  */
 void Board::init_world()
 {
+    logger::Logger logger( "init_world", "sokoban.log", true );
     _boxes = std::vector< Box * >();
     _walls = std::vector< Wall * >();
     _platforms = std::vector< Platform * >();
@@ -214,7 +216,7 @@ void Board::init_world()
         }
         _height = y;
     }
-    logger.log( Logger::Level::INFO, "Building World..." );
+    logger.log( logger::Logger::Level::INFO, "Building World..." );
     build_world();
 }
 
@@ -246,7 +248,7 @@ void Board::build_world()
  * \param type The type of collision: TOP, BOTTOM, LEFT, RIGHT
  * \return true if a collision took place, false if not
  */
-bool Board::check_wall_collision( Actor *actor, int type )
+bool Board::check_wall_collision( const Actor *actor, const int type ) const
 {
     switch ( type )
     {
@@ -297,7 +299,7 @@ bool Board::check_wall_collision( Actor *actor, int type )
  * \param type The type of collision: TOP, BOTTOM, LEFT, RIGHT
  * \return true if a collision took place, false if not
  */
-bool Board::check_box_collision( int type )
+bool Board::check_box_collision( const int type ) const
 {
     switch ( type )
     {
@@ -306,7 +308,7 @@ bool Board::check_box_collision( int type )
             {
                 if ( _player->is_left_collision( box ) )
                 {
-                    for ( Box *item: _boxes )
+                    for ( const Box *item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -330,7 +332,7 @@ bool Board::check_box_collision( int type )
             {
                 if ( _player->is_right_collision( box ) )
                 {
-                    for ( Box *item: _boxes )
+                    for ( const Box *item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -354,7 +356,7 @@ bool Board::check_box_collision( int type )
             {
                 if ( _player->is_top_collision( box ) )
                 {
-                    for ( Box *item: _boxes )
+                    for ( const Box *item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -378,7 +380,7 @@ bool Board::check_box_collision( int type )
             {
                 if ( _player->is_bottom_collision( box ) )
                 {
-                    for ( Box *item: _boxes )
+                    for ( const Box *item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -427,12 +429,12 @@ float Board::get_board_height() const
  */
 bool Board::is_completed() const
 {
-    unsigned long number_of_boxes = _boxes.size();
+    const unsigned long number_of_boxes = _boxes.size();
     unsigned long finished_boxes = 0;
 
-    for ( Box *box: _boxes )
+    for ( const Box *box: _boxes )
     {
-        for ( Platform *platform: _platforms )
+        for ( const Platform *platform: _platforms )
         {
             if ( box->get_x() == platform->get_x() && box->get_y() == platform->get_y() )
             {
@@ -452,7 +454,7 @@ std::string Board::to_string() const
 {
     std::stringstream ss;
     ss << _level;
-    for ( Actor *actor: _world )
+    for ( const Actor *actor: _world )
     {
         ss << actor->to_string() << std::endl;
     }

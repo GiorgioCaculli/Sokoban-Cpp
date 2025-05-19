@@ -10,7 +10,7 @@ using namespace sokoban::core;
  * @param x The X coordinates on the board
  * @param y The Y coordinates on the board
  */
-Player::Player( float x, float y )
+Player::Player( const float x, const float y )
         : Movable( x, y )
 {
 }

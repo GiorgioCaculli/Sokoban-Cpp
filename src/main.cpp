@@ -2,18 +2,18 @@
 
 #include <gzc/games/sokoban/core/Board.hpp>
 
-#include <gzc/logger/Logger.hpp>
+#include <gzc/util/logger/Logger.hpp>
 
 #include <sstream>
 
-using namespace util;
+using namespace gzc::util;
 using namespace sokoban::core;
 
-int main( int argc, char *argv[] )
+int main( const int argc, char *argv[] )
 {
     try
     {
-        Logger logger( "main", "sokoban.log", true );
+        const logger::Logger logger( "main", "sokoban.log", true );
 
         std::stringstream ss;
 
@@ -23,17 +23,17 @@ int main( int argc, char *argv[] )
         {
             ss << argv[ i ] << " ";
         }
-        logger.log( Logger::Level::INFO, ss.str() );
+        logger.log( logger::Logger::Level::INFO, ss.str() );
 
         if( argc <= 1 )
         {
-            logger.log( Logger::Level::ERROR, "Level Missing, Please call ./sokoban <text file>" );
+            logger.log( logger::Logger::Level::ERROR, "Level Missing, Please call ./sokoban <text file>" );
             return -1;
         }
 
         Board board( argv[ 1 ] );
 
-        logger.log( Logger::Level::INFO, "Closing Program..." );
+        logger.log( logger::Logger::Level::INFO, "Closing Program..." );
     }
     catch( std::exception &e )
     {

@@ -1,29 +1,31 @@
 #ifndef SOKOBAN_PLAYER_HPP
 #define SOKOBAN_PLAYER_HPP
 
-#include "Movable.hpp"
+#include <gzc/games/sokoban/core/Movable.hpp>
 
-#include <map>
-#include <array>
 #include <string>
 #include <ostream>
 
-namespace sokoban
+
+namespace sokoban::core
 {
-    namespace core
+    class Player final
+            : public Movable
     {
-        class Player
-                : public Movable
-        {
-        public:
-            Player( float x, float y );
-            Player( const Player &player );
-            Player &operator=( const Player &player );
-            ~Player() override;
-            ID get_type() const override;
-            std::string to_string() const override;
-        };
-    }
+    public:
+        Player( float x, float y );
+
+        Player( const Player& player );
+
+        Player& operator=( const Player& player );
+
+        ~Player() override;
+
+        [[nodiscard]] ID get_type() const override;
+
+        [[nodiscard]] std::string to_string() const override;
+    };
 }
 
-#endif //SOKOBAN_USER_HPP
+
+#endif //SOKOBAN_PLAYER_HPP
