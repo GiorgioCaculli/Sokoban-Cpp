@@ -71,8 +71,21 @@ target_include_directories(sokoban_core PRIVATE include)
 target_link_libraries(sokoban_core ${Boost_LIBRARIES})
 install(TARGETS sokoban_core LIBRARY DESTINATION ${CMAKE_INSTALL_LIB})
 
+# Sokoban Core Library
+add_library(sokoban_net SHARED
+        src/net/Socket.cpp
+        src/net/Client.cpp
+        src/net/Server.cpp
+        src/net/ServerDedicated.cpp
+        src/net/ServerP2P.cpp)
+set_target_properties(sokoban_net PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(sokoban_net PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
+target_include_directories(sokoban_net PRIVATE include)
+target_link_libraries(sokoban_net ${Boost_LIBRARIES})
+install(TARGETS sokoban_net LIBRARY DESTINATION ${CMAKE_INSTALL_LIB})
+
 install(DIRECTORY "include/" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}" FILES_MATCHING PATTERN "*.hpp")
 
 add_executable(sokoban src/main.cpp)
 target_include_directories(sokoban PRIVATE include)
-target_link_libraries(sokoban LINK_PUBLIC sokoban_core ${GZC_UTIL_LOGGER} ${GZC_UTIL_SERIALIZE})
+target_link_libraries(sokoban LINK_PUBLIC sokoban_core sokoban_net ${GZC_UTIL_LOGGER} ${GZC_UTIL_SERIALIZE})
