@@ -1,8 +1,12 @@
 #include <iostream>
 
-#include <gzc/games/sokoban/core/Board.hpp>
-
 #include <gzc/util/logger/Logger.hpp>
+
+#include <gzc/util/serialize/Serialize.hpp>
+
+#include <gzc/games/sokoban/core/Board.hpp>
+#include <gzc/games/sokoban/net/Server.hpp>
+#include <gzc/games/sokoban/net/Client.hpp>
 
 #include <sstream>
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(sokoban VERSION 1.1.2 DESCRIPTION "GzC's Sokoban Library")
+project(sokoban VERSION 0.0.1 DESCRIPTION "GzC's Sokoban Library")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -53,39 +53,27 @@ find_package(Boost
 find_library(GZC_UTIL_LOGGER util_logger)
 find_library(GZC_UTIL_SERIALIZE util_serialize)
 
+# Local libraries
+add_subdirectory(libs)
+
 # Global includes
 include_directories(${Boost_INCLUDE_DIR})
 
-# Sokoban Core Library
-add_library(sokoban_core SHARED
-        src/core/Actor.cpp
-        src/core/Board.cpp
-        src/core/Box.cpp
-        src/core/Movable.cpp
-        src/core/Platform.cpp
-        src/core/Player.cpp
-        src/core/Wall.cpp)
-set_target_properties(sokoban_core PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(sokoban_core PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
-target_include_directories(sokoban_core PRIVATE include)
-target_link_libraries(sokoban_core ${Boost_LIBRARIES})
-install(TARGETS sokoban_core LIBRARY DESTINATION ${CMAKE_INSTALL_LIB})
+message("Building Libraries")
+add_subdirectory(src)
 
-# Sokoban Core Library
-add_library(sokoban_net SHARED
-        src/net/Socket.cpp
-        src/net/Client.cpp
-        src/net/Server.cpp
-        src/net/ServerDedicated.cpp
-        src/net/ServerP2P.cpp)
-set_target_properties(sokoban_net PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(sokoban_net PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
-target_include_directories(sokoban_net PRIVATE include)
-target_link_libraries(sokoban_net ${Boost_LIBRARIES})
-install(TARGETS sokoban_net LIBRARY DESTINATION ${CMAKE_INSTALL_LIB})
+message("Building Tests")
+add_subdirectory(test)
 
 install(DIRECTORY "include/" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}" FILES_MATCHING PATTERN "*.hpp")
 
-add_executable(sokoban src/main.cpp)
-target_include_directories(sokoban PRIVATE include)
-target_link_libraries(sokoban LINK_PUBLIC sokoban_core sokoban_net ${GZC_UTIL_LOGGER} ${GZC_UTIL_SERIALIZE})
+# uninstall target
+if(NOT TARGET uninstall)
+    configure_file(
+            "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+            "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+            IMMEDIATE @ONLY)
+
+    add_custom_target(uninstall
+            COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+endif()
