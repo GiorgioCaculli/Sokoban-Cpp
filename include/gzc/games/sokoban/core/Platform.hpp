@@ -9,7 +9,7 @@
 
 namespace sokoban::core
 {
-    class Platform final
+    class Platform
             : public Actor
     {
     public:

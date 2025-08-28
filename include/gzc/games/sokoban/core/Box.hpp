@@ -13,7 +13,7 @@ namespace sokoban::core
      * Box class
      * This class is an actor that can move, as such it inherits from the classe Movable
      */
-    class Box final
+    class Box
             : public Movable
     {
     public:

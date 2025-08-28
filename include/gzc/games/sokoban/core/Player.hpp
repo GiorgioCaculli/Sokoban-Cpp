@@ -9,7 +9,7 @@
 
 namespace sokoban::core
 {
-    class Player final
+    class Player
             : public Movable
     {
     public:

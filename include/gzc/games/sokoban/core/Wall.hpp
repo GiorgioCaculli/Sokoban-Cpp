@@ -9,7 +9,7 @@
 
 namespace sokoban::core
 {
-    class Wall final
+    class Wall
             : public Actor
     {
     public:
