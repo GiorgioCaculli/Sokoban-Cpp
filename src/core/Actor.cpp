@@ -10,7 +10,6 @@ constexpr float SPACE = 1.f; /** Dans ce cas, les images mesurent 64x64 */
  * This constructor will initialise the different pieces of informations which characterise an actor
  * @param x The X coordinate.
  * @param y The Y coordinate.
- * @param asset_coords The coordinates on the sprite sheet which represent it graphically.
  */
 Actor::Actor( const float x, const float y )
         : _x( x )
@@ -119,7 +118,7 @@ float Actor::get_x() const
  * X coordinate setter
  * @param x The new value of X
  */
-void Actor::set_x( float x )
+void Actor::set_x( const float x )
 {
     this->_x = x;
 }
@@ -137,7 +136,7 @@ float Actor::get_y() const
  * Y coordinate setter
  * @param y The new value of Y
  */
-void Actor::set_y( float y )
+void Actor::set_y( const float y )
 {
     this->_y = y;
 }

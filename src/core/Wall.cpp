@@ -50,7 +50,7 @@ Wall::~Wall()
  */
 Actor::ID Wall::get_type() const
 {
-    return Actor::WALL;
+    return WALL;
 }
 
 /**

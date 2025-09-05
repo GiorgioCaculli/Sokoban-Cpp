@@ -51,7 +51,7 @@ Player::~Player()
  */
 Actor::ID Player::get_type() const
 {
-    return Actor::PLAYER;
+    return PLAYER;
 }
 
 /**

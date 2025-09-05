@@ -53,7 +53,7 @@ namespace sokoban::core
 
         bool check_wall_collision( const Actor* actor, int type ) const;
 
-        bool check_box_collision( int type ) const;
+        [[nodiscard]] bool check_box_collision( int type ) const;
 
         [[nodiscard]] float get_board_width() const;
 

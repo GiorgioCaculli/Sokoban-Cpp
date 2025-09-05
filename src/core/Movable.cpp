@@ -40,7 +40,7 @@ Movable &Movable::operator=( const Movable &movable )
  * @param x The X units to move to
  * @param y The Y units to move to
  */
-void Movable::move( float x, float y )
+void Movable::move( const float x, const float y )
 {
     set_x( get_x() + x );
     set_y( get_y() + y );

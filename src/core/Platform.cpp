@@ -50,7 +50,7 @@ Platform::~Platform()
  */
 Actor::ID Platform::get_type() const
 {
-    return Actor::PLATFORM;
+    return PLATFORM;
 }
 
 /**

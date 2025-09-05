@@ -29,7 +29,7 @@ Box::~Box()
 
 Actor::ID Box::get_type() const
 {
-    return Actor::BOX;
+    return BOX;
 }
 
 std::string Box::to_string() const

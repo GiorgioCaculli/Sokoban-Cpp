@@ -52,16 +52,12 @@ std::string parse_text_file( const std::string &lvl )
  * \param lvl The path for the level
  */
 Board::Board( const std::string &lvl )
-        : _boxes()
-          , _walls()
-          , _platforms()
-          , _player( nullptr )
-          , _world()
+        : _player( nullptr )
           , _width( 0 )
           , _height( 0 )
 {
     _level = parse_text_file( lvl );
-    logger::Logger logger( "board_constructor_lvl_string", "sokoban.log", true );
+    const logger::Logger logger( "board_constructor_lvl_string", "sokoban.log", true );
     logger.log( logger::Logger::Level::INFO, "Level Layout:\n" + _level );
     init_board();
 }
@@ -107,7 +103,7 @@ Board &Board::operator=( const Board &board )
  */
 Board::~Board()
 {
-    logger::Logger logger( "board_constructor", "sokoban.log", true );
+    const logger::Logger logger( "board_constructor", "sokoban.log", true );
     for ( const Wall *wall: _walls )
     {
         logger.log( logger::Logger::Level::INFO, "Deletion " + wall->to_string() );
@@ -136,7 +132,7 @@ Board::~Board()
  */
 void Board::init_board()
 {
-    logger::Logger logger( "init_board", "sokoban.log", true );
+    const logger::Logger logger( "init_board", "sokoban.log", true );
     logger.log( logger::Logger::Level::INFO, "Initializing World..." );
     init_world();
 }
@@ -154,7 +150,7 @@ void Board::init_board()
  */
 void Board::init_world()
 {
-    logger::Logger logger( "init_world", "sokoban.log", true );
+    const logger::Logger logger( "init_world", "sokoban.log", true );
     _boxes = std::vector< Box * >();
     _walls = std::vector< Wall * >();
     _platforms = std::vector< Platform * >();
@@ -164,7 +160,7 @@ void Board::init_world()
     Box *box;
     Wall *wall;
     Platform *platform;
-    for ( char item: _level )
+    for ( const char item: _level )
     {
         switch ( item )
         {
@@ -429,8 +425,8 @@ float Board::get_board_height() const
  */
 bool Board::is_completed() const
 {
-    const unsigned long number_of_boxes = _boxes.size();
-    unsigned long finished_boxes = 0;
+    const unsigned short number_of_boxes = _boxes.size();
+    unsigned short finished_boxes = 0;
 
     for ( const Box *box: _boxes )
     {
