@@ -47,6 +47,7 @@ find_package(Boost
         locale
         log
         unit_test_framework
+        thread
         REQUIRED CONFIG)
 
 # Global libraries
@@ -73,7 +74,7 @@ add_library(gzc_sokoban SHARED
 set_target_properties(gzc_sokoban PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(gzc_sokoban PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 target_include_directories(gzc_sokoban PRIVATE include)
-target_link_libraries(gzc_sokoban ${Boost_LIBRARIES})
+target_link_libraries(gzc_sokoban ${GZC_UTIL})
 install(TARGETS gzc_sokoban LIBRARY DESTINATION ${CMAKE_INSTALL_LIB})
 
 message("Building Tests")
