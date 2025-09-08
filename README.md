@@ -1,7 +1,6 @@
 # Concept library for Sokoban game engine written in C++20
 
 ## Dependencies
-- [Boost](https://www.boost.org/) /* GzC's Util Library dependency */
 - [Google Test](https://google.github.io/googletest/) /* Unit Test Dependency */
 - [GzC's Util Library](https://www.gitlab.com/GiorgioCaculli/Util-Cpp/)
 

@@ -40,21 +40,8 @@ set(CPACK_PACKAGE_EXECUTABLES "${CMAKE_PROJECT_NAME}" "${CMAKE_PROJECT_DESCRIPTI
 include(CPack)
 include_directories(include)
 
-find_package(Boost
-        COMPONENTS
-        date_time
-        filesystem
-        locale
-        log
-        unit_test_framework
-        thread
-        REQUIRED CONFIG)
-
 # Global libraries
 find_library(GZC_UTIL gzc_util)
-
-# Global includes
-include_directories(${Boost_INCLUDE_DIR})
 
 message("Building Libraries")
 # Sokoban Core Library
