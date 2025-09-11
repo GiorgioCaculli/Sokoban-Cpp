@@ -7,6 +7,9 @@ namespace gzc::sokoban::net
 {
     class ServerDedicated : Server
     {
+    public:
+        ServerDedicated();
+        ~ServerDedicated() override;
     };
 }
 
