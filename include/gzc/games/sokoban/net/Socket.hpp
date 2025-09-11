@@ -1,7 +1,7 @@
 #ifndef SOKOBAN_SOCKET_HPP
 #define SOKOBAN_SOCKET_HPP
 
-namespace gzc::games::sokoban::net
+namespace gzc::sokoban::net
 {
     class Socket
     {

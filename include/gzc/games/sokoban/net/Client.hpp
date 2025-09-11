@@ -1,7 +1,7 @@
 #ifndef SOKOBAN_CLIENT_HPP
 #define SOKOBAN_CLIENT_HPP
 
-namespace gzc::games::sokoban::net
+namespace gzc::sokoban::net
 {
     class Client
     {

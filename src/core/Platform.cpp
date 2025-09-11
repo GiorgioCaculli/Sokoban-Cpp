@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-using namespace sokoban::core;
+using namespace gzc::sokoban::core;
 
 /**
  * Default constructor for the platforms

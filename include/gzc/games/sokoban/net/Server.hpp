@@ -1,7 +1,7 @@
 #ifndef SOKOBAN_SERVER_HPP
 #define SOKOBAN_SERVER_HPP
 
-namespace gzc::games::sokoban::net
+namespace gzc::sokoban::net
 {
     class Server
     {

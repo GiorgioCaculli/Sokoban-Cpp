@@ -9,7 +9,7 @@
 #include <fstream>
 
 using namespace gzc::util;
-using namespace sokoban::core;
+using namespace gzc::sokoban::core;
 
 constexpr int OFFSET = 1; /** Variable used for the amount of pixels an actor can move */
 constexpr int SPACE = 1; /** Variable used for the size of each character */

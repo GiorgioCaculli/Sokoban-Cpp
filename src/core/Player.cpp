@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-using namespace sokoban::core;
+using namespace gzc::sokoban::core;
 
 /**
  * Default constructor for the player

@@ -5,7 +5,7 @@
 #include <ostream>
 
 
-namespace sokoban::core
+namespace gzc::sokoban::core
 {
     /**
      * Actor class

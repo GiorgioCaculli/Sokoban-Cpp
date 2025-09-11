@@ -1,4 +1,3 @@
 #include <gzc/games/sokoban/net/ServerP2P.hpp>
 
-namespace gzc::games::sokoban::net {
-}
+using namespace gzc::sokoban::net;

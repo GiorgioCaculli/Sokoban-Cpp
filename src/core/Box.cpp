@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-using namespace sokoban::core;
+using namespace gzc::sokoban::core;
 
 Box::Box( const float x, const float y )
         : Movable( x, y )

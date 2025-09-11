@@ -7,7 +7,7 @@
 #include <ostream>
 
 
-namespace sokoban::core
+namespace gzc::sokoban::core
 {
     /**
      * Box class

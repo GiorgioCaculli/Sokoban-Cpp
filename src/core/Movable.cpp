@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-using namespace sokoban::core;
+using namespace gzc::sokoban::core;
 
 /**
  * Just like the Actor class, the object 'movable' must also instance the X and Y coordinates

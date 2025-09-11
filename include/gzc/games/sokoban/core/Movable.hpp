@@ -11,7 +11,7 @@
  * This class inherits from Actor
  */
 
-namespace sokoban::core
+namespace gzc::sokoban::core
 {
     class Movable
             : public Actor

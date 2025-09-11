@@ -10,14 +10,16 @@
 
 #include <sstream>
 
-using namespace gzc::util;
-using namespace sokoban::core;
+using namespace gzc::util::logger;
+using namespace gzc::util::serialize;
+using namespace gzc::sokoban::core;
 
 int main( const int argc, char *argv[] )
 {
     try
     {
-        const logger::Logger logger( "main", "sokoban.log", true );
+        const Logger logger( "main", "sokoban.log", true );
+        const Serialize serialize( "save_file.dat" );
 
         std::stringstream ss;
 
@@ -27,17 +29,17 @@ int main( const int argc, char *argv[] )
         {
             ss << argv[ i ] << " ";
         }
-        logger.log( logger::Logger::Level::INFO, ss.str() );
+        logger.log( Logger::Level::INFO, ss.str() );
 
         if( argc <= 1 )
         {
-            logger.log( logger::Logger::Level::ERROR, "Level Missing, Please call ./sokoban <text file>" );
+            logger.log( Logger::Level::ERROR, "Level Missing, Please call ./sokoban <text file>" );
             return -1;
         }
 
         Board board( argv[ 1 ] );
 
-        logger.log( logger::Logger::Level::INFO, "Closing Program..." );
+        logger.log( Logger::Level::INFO, "Closing Program..." );
     }
     catch( std::exception &e )
     {

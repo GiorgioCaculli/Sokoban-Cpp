@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-using namespace sokoban::core;
+using namespace gzc::sokoban::core;
 
 constexpr float SPACE = 1.f; /** Dans ce cas, les images mesurent 64x64 */
 

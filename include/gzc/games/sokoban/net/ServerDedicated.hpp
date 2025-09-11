@@ -3,7 +3,7 @@
 
 #include <gzc/games/sokoban/net/Server.hpp>
 
-namespace gzc::games::sokoban::net
+namespace gzc::sokoban::net
 {
     class ServerDedicated : Server
     {
