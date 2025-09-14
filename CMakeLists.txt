@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(Sokoban VERSION 1.2.0 DESCRIPTION "GzC's Sokoban Library")
+project(Sokoban VERSION 1.3.0 DESCRIPTION "GzC's Sokoban Library")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

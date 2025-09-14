@@ -2,8 +2,7 @@
 #define SOKOBAN_ACTOR_HPP
 
 #include <string>
-#include <ostream>
-
+#include <memory>
 
 namespace gzc::sokoban::core
 {
@@ -34,13 +33,13 @@ namespace gzc::sokoban::core
 
         virtual ~Actor() = default;
 
-        bool is_left_collision( const Actor* actor ) const;
+        bool is_left_collision( const std::shared_ptr< Actor > actor ) const;
 
-        bool is_right_collision( const Actor* actor ) const;
+        bool is_right_collision( const std::shared_ptr< Actor > actor ) const;
 
-        bool is_top_collision( const Actor* actor ) const;
+        bool is_top_collision( const std::shared_ptr< Actor > actor ) const;
 
-        bool is_bottom_collision( const Actor* actor ) const;
+        bool is_bottom_collision( const std::shared_ptr< Actor > actor ) const;
 
         [[nodiscard]] float get_x() const;
 

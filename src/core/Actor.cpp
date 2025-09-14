@@ -52,7 +52,7 @@ Actor &Actor::operator=( const Actor &actor )
  * @param actor The actor on the left
  * @return true if the collision took place, false otherwise
  */
-bool Actor::is_left_collision( const Actor *actor ) const
+bool Actor::is_left_collision( const std::shared_ptr< Actor > actor ) const
 {
     return get_x() - SPACE == actor->get_x() && get_y() == actor->get_y();
 }
@@ -68,7 +68,7 @@ bool Actor::is_left_collision( const Actor *actor ) const
  * @param actor The actor on the right
  * @return true if the collision took place, false otherwise
  */
-bool Actor::is_right_collision( const Actor *actor ) const
+bool Actor::is_right_collision( const std::shared_ptr< Actor > actor ) const
 {
     return get_x() + SPACE == actor->get_x() && get_y() == actor->get_y();
 }
@@ -84,7 +84,7 @@ bool Actor::is_right_collision( const Actor *actor ) const
  * @param actor The actor on the top
  * @return true if the collision took place, false otherwise
  */
-bool Actor::is_top_collision( const Actor *actor ) const
+bool Actor::is_top_collision( const std::shared_ptr< Actor > actor ) const
 {
     return get_y() - SPACE == actor->get_y() && get_x() == actor->get_x();
 }
@@ -100,7 +100,7 @@ bool Actor::is_top_collision( const Actor *actor ) const
  * @param actor The actor on the bottom
  * @return true if the collision took place, false otherwise
  */
-bool Actor::is_bottom_collision( const Actor *actor ) const
+bool Actor::is_bottom_collision( const std::shared_ptr< Actor > actor ) const
 {
     return get_y() + SPACE == actor->get_y() && get_x() == actor->get_x();
 }

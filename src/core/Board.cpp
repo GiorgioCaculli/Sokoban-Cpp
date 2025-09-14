@@ -5,7 +5,6 @@
 
 #include <string>
 #include <sstream>
-#include <iostream>
 #include <fstream>
 
 using namespace gzc::util;
@@ -57,8 +56,7 @@ Board::Board( const std::string &lvl )
           , _height( 0 )
 {
     _level = parse_text_file( lvl );
-    const logger::Logger logger( "board_constructor_lvl_string", "sokoban.log", true );
-    logger.log( logger::Logger::Level::INFO, "Level Layout:\n" + _level );
+    _logger.log( logger::Logger::Level::INFO, "Level Layout:\n" + _level );
     init_board();
 }
 
@@ -103,24 +101,6 @@ Board &Board::operator=( const Board &board )
  */
 Board::~Board()
 {
-    const logger::Logger logger( "board_constructor", "sokoban.log", true );
-    for ( const Wall *wall: _walls )
-    {
-        logger.log( logger::Logger::Level::INFO, "Deletion " + wall->to_string() );
-        delete wall;
-    }
-    for ( const Platform *platform: _platforms )
-    {
-        logger.log( logger::Logger::Level::INFO, "Deletion " + platform->to_string() );
-        delete platform;
-    }
-    for ( const Box *box: _boxes )
-    {
-        logger.log( logger::Logger::Level::INFO, "Deletion " + box->to_string() );
-        delete box;
-    }
-    logger.log( logger::Logger::Level::INFO, "Deletion " + _player->to_string() );
-    delete _player;
     _boxes.clear();
     _walls.clear();
     _platforms.clear();
@@ -132,8 +112,7 @@ Board::~Board()
  */
 void Board::init_board()
 {
-    const logger::Logger logger( "init_board", "sokoban.log", true );
-    logger.log( logger::Logger::Level::INFO, "Initializing World..." );
+    _logger.log( logger::Logger::Level::INFO, "Initializing World..." );
     init_world();
 }
 
@@ -150,16 +129,15 @@ void Board::init_board()
  */
 void Board::init_world()
 {
-    const logger::Logger logger( "init_world", "sokoban.log", true );
-    _boxes = std::vector< Box * >();
-    _walls = std::vector< Wall * >();
-    _platforms = std::vector< Platform * >();
+    _boxes = std::vector< std::shared_ptr< Box > >();
+    _walls = std::vector< std::shared_ptr< Wall > >();
+    _platforms = std::vector< std::shared_ptr < Platform > >();
     float x = OFFSET;
     float y = OFFSET;
 
-    Box *box;
-    Wall *wall;
-    Platform *platform;
+    std::shared_ptr< Box > box;
+    std::shared_ptr < Wall> wall;
+    std::shared_ptr< Platform > platform;
     for ( const char item: _level )
     {
         switch ( item )
@@ -173,34 +151,34 @@ void Board::init_world()
                 x = OFFSET;
                 break;
             case '#':
-                wall = new Wall( x, y );
+                wall = std::make_shared< Wall >( x, y );
                 _walls.insert( _walls.begin(), wall );
                 x += SPACE;
                 break;
             case '$':
-                box = new Box( x, y );
+                box = std::make_shared< Box >( x, y );
                 _boxes.insert( _boxes.begin(), box );
                 x += SPACE;
                 break;
             case '.':
-                platform = new Platform( x, y );
+                platform = std::make_shared< Platform >( x, y );
                 _platforms.insert( _platforms.begin(), platform );
                 x += SPACE;
                 break;
             case '@':
-                _player = new Player( x, y );
+                _player = std::make_shared< Player >( x, y );
                 x += SPACE;
                 break;
             case '*':
-                box = new Box( x, y );
-                platform = new Platform( x, y );
+                box = std::make_shared< Box >( x, y );
+                platform = std::make_shared< Platform >( x, y );
                 _boxes.insert( _boxes.begin(), box );
                 _platforms.insert( _platforms.begin(), platform );
                 x += SPACE;
                 break;
             case '+':
-                _player = new Player( x, y );
-                platform = new Platform( x, y );
+                _player = std::make_shared< Player >( x, y );
+                platform = std::make_shared< Platform >( x, y );
                 _platforms.insert( _platforms.begin(), platform );
                 x += SPACE;
                 break;
@@ -212,7 +190,7 @@ void Board::init_world()
         }
         _height = y;
     }
-    logger.log( logger::Logger::Level::INFO, "Building World..." );
+    _logger.log( logger::Logger::Level::INFO, "Building World..." );
     build_world();
 }
 
@@ -222,16 +200,16 @@ void Board::init_world()
  */
 void Board::build_world()
 {
-    _world = std::vector< Actor * >();
-    for ( Wall *wall: _walls )
+    _world = std::vector< std::shared_ptr< Actor > >();
+    for ( std::shared_ptr< Wall > wall: _walls )
     {
         _world.insert( _world.begin(), wall );
     }
-    for ( Platform *platform: _platforms )
+    for ( std::shared_ptr< Platform > platform: _platforms )
     {
         _world.insert( _world.begin(), platform );
     }
-    for ( Box *box: _boxes )
+    for ( std::shared_ptr< Box > box: _boxes )
     {
         _world.insert( _world.begin(), box );
     }
@@ -244,12 +222,12 @@ void Board::build_world()
  * \param type The type of collision: TOP, BOTTOM, LEFT, RIGHT
  * \return true if a collision took place, false if not
  */
-bool Board::check_wall_collision( const Actor *actor, const int type ) const
+bool Board::check_wall_collision( const std::shared_ptr< Actor >& actor, const int type ) const
 {
     switch ( type )
     {
         case LEFT_COLLISION:
-            for ( const Wall *wall: _walls )
+            for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_left_collision( wall ) )
                 {
@@ -258,7 +236,7 @@ bool Board::check_wall_collision( const Actor *actor, const int type ) const
             }
             return false;
         case RIGHT_COLLISION:
-            for ( const Wall *wall: _walls )
+            for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_right_collision( wall ) )
                 {
@@ -267,7 +245,7 @@ bool Board::check_wall_collision( const Actor *actor, const int type ) const
             }
             return false;
         case TOP_COLLISION:
-            for ( const Wall *wall: _walls )
+            for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_top_collision( wall ) )
                 {
@@ -276,7 +254,7 @@ bool Board::check_wall_collision( const Actor *actor, const int type ) const
             }
             return false;
         case BOTTOM_COLLISION:
-            for ( const Wall *wall: _walls )
+            for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_bottom_collision( wall ) )
                 {
@@ -300,11 +278,11 @@ bool Board::check_box_collision( const int type ) const
     switch ( type )
     {
         case LEFT_COLLISION:
-            for ( Box *box: _boxes )
+            for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_left_collision( box ) )
                 {
-                    for ( const Box *item: _boxes )
+                    for ( const std::shared_ptr< Box >& item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -319,16 +297,16 @@ bool Board::check_box_collision( const int type ) const
                         }
                     }
                     box->move( -SPACE, 0 );
-                    is_completed();
+                    return is_completed();
                 }
             }
             return false;
         case RIGHT_COLLISION:
-            for ( Box *box: _boxes )
+            for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_right_collision( box ) )
                 {
-                    for ( const Box *item: _boxes )
+                    for ( const std::shared_ptr< Box >& item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -343,16 +321,16 @@ bool Board::check_box_collision( const int type ) const
                         }
                     }
                     box->move( SPACE, 0 );
-                    is_completed();
+                    return is_completed();
                 }
             }
             return false;
         case TOP_COLLISION:
-            for ( Box *box: _boxes )
+            for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_top_collision( box ) )
                 {
-                    for ( const Box *item: _boxes )
+                    for ( const std::shared_ptr< Box >& item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -367,16 +345,16 @@ bool Board::check_box_collision( const int type ) const
                         }
                     }
                     box->move( 0, -SPACE );
-                    is_completed();
+                    return is_completed();
                 }
             }
             return false;
         case BOTTOM_COLLISION:
-            for ( Box *box: _boxes )
+            for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_bottom_collision( box ) )
                 {
-                    for ( const Box *item: _boxes )
+                    for ( const std::shared_ptr< Box >& item: _boxes )
                     {
                         if ( box != item )
                         {
@@ -391,7 +369,7 @@ bool Board::check_box_collision( const int type ) const
                         }
                     }
                     box->move( 0, SPACE );
-                    is_completed();
+                    return is_completed();
                 }
             }
             return false;
@@ -428,9 +406,9 @@ bool Board::is_completed() const
     const unsigned short number_of_boxes = _boxes.size();
     unsigned short finished_boxes = 0;
 
-    for ( const Box *box: _boxes )
+    for ( const std::shared_ptr< Box >& box: _boxes )
     {
-        for ( const Platform *platform: _platforms )
+        for ( const std::shared_ptr< Platform >& platform: _platforms )
         {
             if ( box->get_x() == platform->get_x() && box->get_y() == platform->get_y() )
             {
@@ -450,7 +428,7 @@ std::string Board::to_string() const
 {
     std::stringstream ss;
     ss << _level;
-    for ( const Actor *actor: _world )
+    for ( const std::shared_ptr< Actor >& actor: _world )
     {
         ss << actor->to_string() << std::endl;
     }
@@ -461,7 +439,7 @@ std::string Board::to_string() const
  * Function to retrieve all the actors on the board
  * \return The vector containing the various actors
  */
-std::vector< Actor * > Board::get_world()
+std::vector< std::shared_ptr< Actor > > Board::get_world() const
 {
     return _world;
 }

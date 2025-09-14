@@ -1,7 +1,6 @@
 #include <gzc/games/sokoban/core/Player.hpp>
 
 #include <sstream>
-#include <iostream>
 
 using namespace gzc::sokoban::core;
 

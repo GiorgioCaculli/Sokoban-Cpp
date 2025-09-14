@@ -7,8 +7,9 @@
 #include <gzc/games/sokoban/core/Player.hpp>
 #include <gzc/games/sokoban/core/Platform.hpp>
 
+#include <gzc/util/logger/Logger.hpp>
 #include <vector>
-#include <ostream>
+#include <memory>
 
 
 namespace gzc::sokoban::core
@@ -20,12 +21,13 @@ namespace gzc::sokoban::core
     class Board
     {
     private:
+        const gzc::util::logger::Logger _logger = gzc::util::logger::Logger( "Board", "sokoban.log", true );
         std::string _level; /** The skeleton of the level */
-        std::vector< Box * > _boxes; /** All the boxes in the level */
-        std::vector< Wall * > _walls; /** All the walls in the game */
-        std::vector< Platform * > _platforms; /** All the platforms in the game */
-        Player* _player; /** The main character of the game */
-        std::vector< Actor * > _world; /** Every actor in the game */
+        std::vector< std::shared_ptr< Box > > _boxes; /** All the boxes in the level */
+        std::vector< std::shared_ptr< Wall > > _walls; /** All the walls in the game */
+        std::vector< std::shared_ptr< Platform > > _platforms; /** All the platforms in the game */
+        std::shared_ptr< Player > _player; /** The main character of the game */
+        std::vector< std::shared_ptr< Actor > > _world; /** Every actor in the game */
         float _width; /** The board's maximum width */
         float _height; /** The board's maximum height */
         void init_board();
@@ -51,7 +53,7 @@ namespace gzc::sokoban::core
 
         ~Board();
 
-        bool check_wall_collision( const Actor* actor, int type ) const;
+        bool check_wall_collision( const std::shared_ptr< Actor >& actor, int type ) const;
 
         [[nodiscard]] bool check_box_collision( int type ) const;
 
@@ -61,7 +63,7 @@ namespace gzc::sokoban::core
 
         [[nodiscard]] bool is_completed() const;
 
-        std::vector< Actor * > get_world();
+        [[nodiscard]] std::vector< std::shared_ptr< Actor > > get_world() const;
 
         [[nodiscard]] std::string to_string() const;
     };

@@ -4,13 +4,11 @@
 #include <gzc/games/sokoban/core/Actor.hpp>
 
 #include <string>
-#include <ostream>
 
 /**
  * Class that handles actors capable of moving
  * This class inherits from Actor
  */
-
 namespace gzc::sokoban::core
 {
     class Movable

@@ -4,7 +4,6 @@
 #include <gzc/games/sokoban/core/Movable.hpp>
 
 #include <string>
-#include <ostream>
 
 
 namespace gzc::sokoban::core

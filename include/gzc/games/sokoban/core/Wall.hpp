@@ -4,7 +4,6 @@
 #include <gzc/games/sokoban/core/Actor.hpp>
 
 #include <string>
-#include <ostream>
 
 
 namespace gzc::sokoban::core
