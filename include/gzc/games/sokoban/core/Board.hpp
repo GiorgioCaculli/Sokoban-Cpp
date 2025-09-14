@@ -37,12 +37,12 @@ namespace gzc::sokoban::core
         void build_world();
 
     public:
-        enum
+        enum class Collision
         {
-            LEFT_COLLISION,
-            RIGHT_COLLISION,
-            TOP_COLLISION,
-            BOTTOM_COLLISION
+            LEFT,
+            RIGHT,
+            TOP,
+            BOTTOM
         };
 
         explicit Board( const std::string& lvl );
@@ -53,9 +53,9 @@ namespace gzc::sokoban::core
 
         ~Board();
 
-        bool check_wall_collision( const std::shared_ptr< Actor >& actor, int type ) const;
+        bool check_wall_collision( const std::shared_ptr< Actor >& actor, Collision type ) const;
 
-        [[nodiscard]] bool check_box_collision( int type ) const;
+        [[nodiscard]] bool check_box_collision( Collision type ) const;
 
         [[nodiscard]] float get_board_width() const;
 

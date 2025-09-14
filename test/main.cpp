@@ -2,8 +2,6 @@
 
 #include <gzc/util/logger/Logger.hpp>
 
-#include <gzc/util/serialize/Serialize.hpp>
-
 #include <gzc/games/sokoban/core/Board.hpp>
 #include <gzc/games/sokoban/net/Server.hpp>
 #include <gzc/games/sokoban/net/Client.hpp>
@@ -11,7 +9,6 @@
 #include <sstream>
 
 using namespace gzc::util::logger;
-using namespace gzc::util::serialize;
 using namespace gzc::sokoban::core;
 
 int main( const int argc, char *argv[] )
@@ -19,7 +16,6 @@ int main( const int argc, char *argv[] )
     try
     {
         const Logger logger( "main", "sokoban.log", true );
-        const Serialize serialize( "save_file.dat" );
 
         std::stringstream ss;
 

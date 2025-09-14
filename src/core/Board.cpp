@@ -222,11 +222,12 @@ void Board::build_world()
  * \param type The type of collision: TOP, BOTTOM, LEFT, RIGHT
  * \return true if a collision took place, false if not
  */
-bool Board::check_wall_collision( const std::shared_ptr< Actor >& actor, const int type ) const
+bool Board::check_wall_collision( const std::shared_ptr< Actor >& actor, const Collision type ) const
 {
     switch ( type )
     {
-        case LEFT_COLLISION:
+        using enum gzc::sokoban::core::Board::Collision;
+        case LEFT:
             for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_left_collision( wall ) )
@@ -235,7 +236,7 @@ bool Board::check_wall_collision( const std::shared_ptr< Actor >& actor, const i
                 }
             }
             return false;
-        case RIGHT_COLLISION:
+        case RIGHT:
             for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_right_collision( wall ) )
@@ -244,7 +245,7 @@ bool Board::check_wall_collision( const std::shared_ptr< Actor >& actor, const i
                 }
             }
             return false;
-        case TOP_COLLISION:
+        case TOP:
             for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_top_collision( wall ) )
@@ -253,7 +254,7 @@ bool Board::check_wall_collision( const std::shared_ptr< Actor >& actor, const i
                 }
             }
             return false;
-        case BOTTOM_COLLISION:
+        case BOTTOM:
             for ( const std::shared_ptr< Wall >& wall: _walls )
             {
                 if ( actor->is_bottom_collision( wall ) )
@@ -273,11 +274,12 @@ bool Board::check_wall_collision( const std::shared_ptr< Actor >& actor, const i
  * \param type The type of collision: TOP, BOTTOM, LEFT, RIGHT
  * \return true if a collision took place, false if not
  */
-bool Board::check_box_collision( const int type ) const
+bool Board::check_box_collision( const Collision type ) const
 {
     switch ( type )
     {
-        case LEFT_COLLISION:
+        using enum gzc::sokoban::core::Board::Collision;
+        case LEFT:
             for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_left_collision( box ) )
@@ -291,7 +293,7 @@ bool Board::check_box_collision( const int type ) const
                                 return true;
                             }
                         }
-                        if ( check_wall_collision( box, LEFT_COLLISION ) )
+                        if ( check_wall_collision( box, LEFT ) )
                         {
                             return true;
                         }
@@ -301,7 +303,7 @@ bool Board::check_box_collision( const int type ) const
                 }
             }
             return false;
-        case RIGHT_COLLISION:
+        case RIGHT:
             for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_right_collision( box ) )
@@ -315,7 +317,7 @@ bool Board::check_box_collision( const int type ) const
                                 return true;
                             }
                         }
-                        if ( check_wall_collision( box, RIGHT_COLLISION ) )
+                        if ( check_wall_collision( box, RIGHT ) )
                         {
                             return true;
                         }
@@ -325,21 +327,18 @@ bool Board::check_box_collision( const int type ) const
                 }
             }
             return false;
-        case TOP_COLLISION:
+        case TOP:
             for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_top_collision( box ) )
                 {
                     for ( const std::shared_ptr< Box >& item: _boxes )
                     {
-                        if ( box != item )
+                        if ( box != item && box->is_top_collision( item ) )
                         {
-                            if ( box->is_top_collision( item ) )
-                            {
-                                return true;
-                            }
+                            return true;
                         }
-                        if ( check_wall_collision( box, TOP_COLLISION ) )
+                        if ( check_wall_collision( box, TOP ) )
                         {
                             return true;
                         }
@@ -349,21 +348,18 @@ bool Board::check_box_collision( const int type ) const
                 }
             }
             return false;
-        case BOTTOM_COLLISION:
+        case BOTTOM:
             for ( std::shared_ptr< Box > box: _boxes )
             {
                 if ( _player->is_bottom_collision( box ) )
                 {
                     for ( const std::shared_ptr< Box >& item: _boxes )
                     {
-                        if ( box != item )
+                        if ( box != item && box->is_bottom_collision( item ) )
                         {
-                            if ( box->is_bottom_collision( item ) )
-                            {
-                                return true;
-                            }
+                            return true;
                         }
-                        if ( check_wall_collision( box, BOTTOM_COLLISION ) )
+                        if ( check_wall_collision( box, BOTTOM ) )
                         {
                             return true;
                         }
