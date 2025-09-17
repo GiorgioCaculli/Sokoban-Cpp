@@ -13,7 +13,7 @@ namespace gzc::sokoban::net
         Client();
         Client( const Client& c );
         Client& operator=( const Client& c );
-        ~Client();
+        virtual ~Client();
         [[nodiscard]] std::string get_username() const;
         void set_username( const std::string_view& username );
     private:

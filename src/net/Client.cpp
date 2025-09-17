@@ -27,6 +27,9 @@ Client& Client::operator=( const Client& c )
     return *this;
 }
 
+Client::~Client()
+= default;
+
 void Client::set_username( const std::string_view& username )
 {
     this->_username = username;
