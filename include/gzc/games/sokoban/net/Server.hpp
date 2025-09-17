@@ -13,7 +13,7 @@ namespace gzc::sokoban::net
         Server( const std::string_view& server_name, const std::string_view& server_ip, u_int16_t server_port );
         Server();
         Server( const Server& s );
-        virtual Server& operator=( const Server& s ) = 0; 
+        Server& operator=( const Server& s ); 
         virtual ~Server() = 0;
         [[nodiscard]] std::string get_server_name() const;
         void set_server_name( const std::string_view& server_name );
