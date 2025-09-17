@@ -8,7 +8,10 @@ namespace gzc::sokoban::net
     class ServerDedicated : Server
     {
     public:
+        explicit ServerDedicated( const std::string_view& server_name, const std::string_view& server_ip, u_int16_t server_port );
         ServerDedicated();
+        ServerDedicated( const ServerDedicated& s );
+        ServerDedicated& operator=( const ServerDedicated& s );
         ~ServerDedicated() override;
     };
 }
